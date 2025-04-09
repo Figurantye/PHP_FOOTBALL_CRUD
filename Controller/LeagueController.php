@@ -13,21 +13,18 @@ class LeagueController{
         include 'View/League/LeagueForm.php';
     }
 
-    public static function save()
+    public static function saveController($fullname)
     {
         var_dump($_POST);
         // exit;
         
         $league = new LeagueModel(); //instancia o objeto
         
-        $league -> id = $_POST['id'];
-        $league -> getFullName();
-        $league -> nickname = $_POST['nickname'];
-        $league -> birthdate = $_POST['birthdate'];
+        $league -> setFullName($fullname);
 
-        $model -> save();
+        $league -> saveModel();
 
-        header("Location: /person");
+        header("Location: /league");
     }
     
     public static function index()
@@ -36,18 +33,15 @@ class LeagueController{
 
         $model->getAllRows();
 
-        include "View/Modules/Person/ListPeople.php";
+        include "View/League/LeagueList.php";
     }
 
     public static function deleteController()
     {
-        $model = new LeagueModel();
-        $model->deleteModel((int) $_GET['id']);
+        $league = new LeagueModel();
+        $league->deleteModel((int) $_GET['id']);
 
-        header('Location: /person');
+        header('Location: /league');
     }
-
-
-
 }
 ?>

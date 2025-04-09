@@ -1,14 +1,15 @@
 <?php
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-echo $url;
+
+include '../PHP_FOOTBALL_CRUD/Controller/LeagueController.php';
 
 switch ($url) {
     case '/':
         break;
     case '/league/leagueform':
-        echo "<br>Form of leagues";
+        LeagueController::form();
         break;
-    case '/league/leaguelist':
+    case '/league':
         echo "<br>List Leagues";
         break;
     case '/league/leaguelistclubs':

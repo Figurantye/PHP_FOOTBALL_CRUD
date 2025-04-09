@@ -1,7 +1,7 @@
 <?php
 class LeagueModel
 {
-    private $id, $full_name, $nickname;
+    private $id, $full_name;
     
     public $rows; //variável para armazenar todas as linhas que estão chengando do banco de dados
     
@@ -11,17 +11,9 @@ class LeagueModel
     function getFullName(){
         return $this->full_name; 
     }
-    function getNickName(){
-        return $this->nickname;
-    }
-
     function setFullName($FullName){
          $this->full_name = $FullName; 
     }
-    function setNickName($NickName){
-         $this->nickname = $NickName;
-    }
-
     public function saveModel()
     {
         include 'DAO/LeagueDAO.php'; //conexão com a DAO
