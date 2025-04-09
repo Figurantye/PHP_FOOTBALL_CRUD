@@ -2,15 +2,22 @@
 <?php
 class ClubDAO
 {
+    private $connection;
 
+    public function __construct()
+    {
+        $dsn = "mysql:host=localhost:3306;dbname=db_football";
+
+        $this->connection = new PDO($dsn, 'root', 'root'); //credenciais do banco de dados
+    }
+    
     //Insert functions
     public function insertClub(ClubModel $club)
     {
         include '/Connection.php';
         $sql = "INSERT INTO club (full_name, nickname, ground, founded, coach, saf, chairman, color, last_title_year, league) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //string sql
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
 
         $stmt->bindValue(1, $club->getFullName());
         $stmt->bindValue(2, $club->getNickName());
@@ -34,8 +41,7 @@ class ClubDAO
 
         $sql = "SELECT * FROM club WHERE id=?";
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);
 
         $stmt->execute();
@@ -49,8 +55,7 @@ class ClubDAO
         include '/Connection.php';
         $sql = "SELECT * FROM club"; //sql para listar as pessoas do banco
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS);
@@ -62,8 +67,7 @@ class ClubDAO
         include '/Connection.php';
         $sql = "UPDATE club SET league=?, full_name=?, nickname=?, ground=?, founded=?, coach=?, saf=?, chairman=?, color=?, last_title_yer=? WHERE id=?";
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
 
         
         $stmt->bindValue(1, $club->getLeague());
@@ -89,8 +93,7 @@ class ClubDAO
         include '/Connection.php';
         $sql = "DELETE FROM club WHERE id=?";
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);
         $stmt->execute();
     }

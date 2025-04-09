@@ -1,9 +1,9 @@
 <?php
-include "Model/PlayerModel.php";
 class PlayerController
 {
     public static function form()
     {
+        include "Model/PlayerModel.php";
 
         $player = new PlayerModel();
 
@@ -14,29 +14,34 @@ class PlayerController
         include 'View/Player/PlayerForm.php';
     }
 
-    public static function saveController($currentClub, $league, $fullname, $nickname, $playerPostion, $birthdate)
+    public static function saveController()
     {
-        var_dump($_POST);
-        // exit;
+        include "Model/PlayerModel.php";
+
+        $currentClub = $_POST['currentClubInput'];
+        $nickname = $_POST['nicknameInput'];
+        $playerPostion = $_POST['playerPostionInput'];
+        $birthdate = $_POST['birthdateInput'];
 
         $player = new PlayerModel(); //instancia o objeto
 
-        $player->saveModel($currentClub, $league, $fullname, $nickname, $playerPostion, $birthdate);
-
         header("Location: /player");
+        $player->saveModel($currentClub, $league, $fullname, $nickname, $playerPostion, $birthdate);
     }
 
     public static function index()
     {
-        $model = new PlayerModel();
+        include "Model/PlayerModel.php";
 
-        $model->getAllRows();
+        $player = new PlayerModel();
+        $data['rows'] = $player->getAllRows();
 
         include "View/Player/PlayerList.php";
     }
 
     public static function deleteController()
     {
+        include "Model/PlayerModel.php";
         $player = new PlayerModel();
         $player->deleteModel((int) $_GET['id']);
 

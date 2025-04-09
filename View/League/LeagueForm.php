@@ -9,11 +9,11 @@
 </head>
 
 <body>
-    <header class="text-center">
+    <header class="text-center mt-3">
         <h1>League Form</h1>
-        <p>Fill all fileds with data of your favorite league</p>
+        <p>Fill all fileds with data of your favorite football league</p>
     </header>   
-    <main class="container">
+    <main class="container mt-4">
         <form action="/league/leagueform/save" class="justify-content-center d-flex flex-column" method="post">
             <div class="d-flex justify-content-evenly">
                 <article class="w-25">
@@ -25,7 +25,9 @@
                     <input type="text" class="form-control" placeholder="Country" id="countryInput" name="countryInput">
                 </article>
             </div>
-            <button class="btn btn-outline-primary w-25" type="submit">Send</button>
+            <div class="justify-content-center d-flex mt-4">
+                <button class="btn btn-primary w-25" type="submit">Send</button>
+            </div>
         </form>
     </main>
 </body>

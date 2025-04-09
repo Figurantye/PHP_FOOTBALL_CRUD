@@ -33,8 +33,6 @@ class LeagueController{
         $data['rows'] = $league->getAllRows();
 
         include "View/League/LeagueList.php";
-
-        var_dump($league);
     }
 
     public static function deleteController()

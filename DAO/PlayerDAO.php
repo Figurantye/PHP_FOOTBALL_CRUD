@@ -1,16 +1,22 @@
 <?php
 
-include '/Connection.php';
 class PlayerDAO
 {
+    private $connection;
+
+    public function __construct()
+    {
+        $dsn = "mysql:host=localhost:3306;dbname=db_football";
+
+        $this->connection = new PDO($dsn, 'root', 'root'); //credenciais do banco de dados
+    }
 
     //Insert functions
     public function insertPlayer(PlayerModel $club)
     {
         $sql = "INSERT INTO club (full_name, nickname, player_position, birthdate, current_club) VALUES (?, ?, ?, ?, ?)"; //string sql
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
 
         $stmt->bindValue(1, $club->getFullName());
         $stmt->bindValue(2, $club->getNickName());
@@ -27,8 +33,7 @@ class PlayerDAO
 
         $sql = "SELECT * FROM club WHERE id=?";
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);
 
         $stmt->execute();
@@ -41,8 +46,7 @@ class PlayerDAO
     {
         $sql = "SELECT * FROM player"; //sql para listar as pessoas do banco
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS);
@@ -54,8 +58,7 @@ class PlayerDAO
     {
         $sql = "UPDATE player SET full_name=?, nickname=?, player_position=?, birthdate=?, league=? WHERE id=?";
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
 
         $stmt->bindValue(1, $player->getFullName());
         $stmt->bindValue(2, $player->getNickName());
@@ -73,8 +76,7 @@ class PlayerDAO
     {
         $sql = "DELETE FROM player WHERE id=?";
 
-        $connection = new Connection()->getConnection();
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);
         $stmt->execute();
     }
