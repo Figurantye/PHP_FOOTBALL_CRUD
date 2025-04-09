@@ -1,7 +1,7 @@
 <?php
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-include '../PHP_FOOTBALL_CRUD/Controller/LeagueController.php';
+include 'Controller/LeagueController.php';
 
 switch ($url) {
     case '/':
@@ -9,8 +9,11 @@ switch ($url) {
     case '/league/leagueform':
         LeagueController::form();
         break;
+    case '/league/leagueform/save':
+        LeagueController::saveController();
+        break;
     case '/league':
-        echo "<br>List Leagues";
+        LeagueController::index();
         break;
     case '/league/leaguelistclubs':
         echo "<br>List of league's clubs";
@@ -24,4 +27,3 @@ switch ($url) {
 }
 
 ?>
-

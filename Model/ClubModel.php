@@ -70,11 +70,23 @@ class ClubModel
          $this->last_title_year = $LastTitleYear;
     }
     
-    public function saveModel()
+    public function saveModel($league, $full_name, $nickname, $ground, $founded, $coach, $saf, $chairman, $color, $last_title_year)
     {
         include 'DAO/ClubDAO.php'; //conexão com a DAO
 
         $dao = new ClubDAO();
+
+        $this->league = $league; 
+        $this->full_name = $full_name; 
+        $this->nickname = $nickname; 
+        $this->ground = $ground; 
+        $this->founded = $founded; 
+        $this->coach = $coach; 
+        $this->saf = $saf; 
+        $this->chairman = $chairman; 
+        $this->color = $color; 
+        $this->last_title_year = $last_title_year; 
+
 
         if (empty($this->id)) {
             $dao->insertClub($this);

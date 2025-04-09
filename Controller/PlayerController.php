@@ -21,14 +21,7 @@ class PlayerController
 
         $player = new PlayerModel(); //instancia o objeto
 
-        $player->setFullName($fullname);
-        $player->setNickName($nickname);
-        $player->setCurrentClub($currentClub);
-        $player->setLeague($league);
-        $player->setPlayerPosition($playerPostion);
-        $player->setBirhdate($birthdate);
-
-        $player->saveModel();
+        $player->saveModel($currentClub, $league, $fullname, $nickname, $playerPostion, $birthdate);
 
         header("Location: /player");
     }

@@ -45,11 +45,18 @@ Class PlayerModel{
          $this->birthdate = $newBirthdate;
     }
 
-    public function saveModel()
+    public function saveModel($current_club, $league, $full_name, $nickname, $player_position, $birthdate)
     {
         include 'DAO/PlayerDAO.php'; //conexão com a DAO
 
         $dao = new PlayerDAO();
+
+        $this->league = $league; 
+        $this->full_name = $full_name; 
+        $this->nickname = $nickname; 
+        $this->player_position = $player_position; 
+        $this->birthdate = $birthdate; 
+        $this->current_club = $current_club; 
 
         if (empty($this->id)) {
             $dao->insertPlayer($this);

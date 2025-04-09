@@ -1,9 +1,8 @@
 <?php
-include "Model/LeagueModel.php";
 class LeagueController{
     public static function form()
     {
-        
+        include "Model/LeagueModel.php";
         $league = new LeagueModel(); 
         
         if (isset($_GET['id'])) {
@@ -13,31 +12,34 @@ class LeagueController{
         include 'View/League/LeagueForm.php';
     }
 
-    public static function saveController($fullname)
+    public static function saveController()
     {
-        var_dump($_POST);
-        // exit;
+        include "Model/LeagueModel.php";
         
-        $league = new LeagueModel(); //instancia o objeto
+        $fullname = $_POST['fullNameInput'];
+        $country = $_POST['countryInput'];
         
-        $league -> setFullName($fullname);
-
-        $league -> saveModel();
-
         header("Location: /league");
+
+        $league = new LeagueModel(); //instancia o objeto
+        $league -> saveModel($fullname, $country);
     }
     
     public static function index()
     {
-        $model = new LeagueModel();
+        include "Model/LeagueModel.php";
 
-        $model->getAllRows();
+        $league = new LeagueModel();
+        $data['rows'] = $league->getAllRows();
 
         include "View/League/LeagueList.php";
+
+        var_dump($league);
     }
 
     public static function deleteController()
     {
+        include "Model/LeagueModel.php";
         $league = new LeagueModel();
         $league->deleteModel((int) $_GET['id']);
 

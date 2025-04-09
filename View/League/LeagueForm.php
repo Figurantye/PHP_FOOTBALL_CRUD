@@ -13,15 +13,19 @@
         <h1>League Form</h1>
         <p>Fill all fileds with data of your favorite league</p>
     </header>   
-    <main class="container ">
-        <form action="/View/League/LeagueList.php" class="justify-content-center d-flex flex-column">
-            <article class="">
-                <label for="">Full Name:</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Full Name" id="fullNameInput">
-                    <button class="btn btn-outline-primary">Send</button>
-                </div>
-            </article>
+    <main class="container">
+        <form action="/league/leagueform/save" class="justify-content-center d-flex flex-column" method="post">
+            <div class="d-flex justify-content-evenly">
+                <article class="w-25">
+                    <label for="fullNameInput">Full Name:</label>
+                    <input type="text" class="form-control" placeholder="Full Name" id="fullNameInput" name="fullNameInput">
+                </article>
+                <article class="w-25">
+                    <label for="countryInput">Country:</label>
+                    <input type="text" class="form-control" placeholder="Country" id="countryInput" name="countryInput">
+                </article>
+            </div>
+            <button class="btn btn-outline-primary w-25" type="submit">Send</button>
         </form>
     </main>
 </body>

@@ -20,18 +20,7 @@ class ClubController
 
         $club = new clubModel(); //instancia o objeto
 
-        $club->setLeague($league);
-        $club->setNickName($nickname);
-        $club->setFullName($fullname);
-        $club->setGround($ground);
-        $club->setFounded($founded);
-        $club->setCoach($coach);
-        $club->setSaf($saf);
-        $club->setChairman($chairman);
-        $club->setColor($color);
-        $club->setLastTitleYear($lastYearTitle);
-
-        $club->saveModel();
+        $club->saveModel($league, $fullname, $nickname, $ground, $founded, $coach, $saf, $chairman, $color, $lastYearTitle);
 
         header("Location: /club");
     }
