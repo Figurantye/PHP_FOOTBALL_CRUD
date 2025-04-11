@@ -1,6 +1,6 @@
 <?php
 Class PlayerModel{
-    private $id, $current_club, $league, $full_name, $nickname, $player_position, $birthdate;
+    private $id, $current_club, $full_name, $nickname, $player_position, $birthdate;
     
     public $rows; //variável para armazenar todas as linhas que estão chengando do banco de dados
     
@@ -10,9 +10,7 @@ Class PlayerModel{
     function getCurrentClub(){
         return $this->current_club;
     }
-    function getLeague(){
-        return $this->league;
-    }
+
     function getFullName(){
         return $this->full_name; 
     }
@@ -29,9 +27,7 @@ Class PlayerModel{
     function setCurrentClub($newClub){
         $this->current_club = $newClub;
     }
-    function setLeague($League){
-         $this->league = $League;
-    }
+
     function setFullName($FullName){
          $this->full_name = $FullName; 
     }
@@ -45,13 +41,12 @@ Class PlayerModel{
          $this->birthdate = $newBirthdate;
     }
 
-    public function saveModel($current_club, $league, $full_name, $nickname, $player_position, $birthdate)
+    public function saveModel($current_club, $full_name, $nickname, $player_position, $birthdate)
     {
         include 'DAO/PlayerDAO.php'; //conexão com a DAO
 
         $dao = new PlayerDAO();
 
-        $this->league = $league; 
         $this->full_name = $full_name; 
         $this->nickname = $nickname; 
         $this->player_position = $player_position; 

@@ -3,21 +3,21 @@ class LeagueModel
 {
     private $id, $full_name, $country;
     
-    public $rows; //variável para armazenar todas as linhas que estão chengando do banco de dados
+    public $leagueRows; //variável para armazenar todas as linhas que estão chengando do banco de dados
 
-    function getId(){
+    public function getId(){
         return $this->id;
     }
-    function getFullName(){
+    public function getFullName(){
         return $this->full_name; 
     }
-    function getCountry(){
+    public function getCountry(){
         return $this->country; 
     }
-    function setFullName($NewFullName){
+    public function setFullName($NewFullName){
          $this->full_name = $NewFullName; 
     }
-    function setCountry($newCountry){
+    public function setCountry($newCountry){
          $this->country = $newCountry; 
     }
     public function saveModel($full_name, $country)
@@ -30,15 +30,19 @@ class LeagueModel
         $this->country = $country;
 
         $dao->insertLeague($this);
+    }
 
-        var_dump($dao);
-        exit;
+    public function editModel($id, $league_name, $country)
+    {
+        include 'DAO/LeagueDAO.php'; //conexão com a DAO
 
-        // if (empty($this->id)) {
-        //     $dao->insertLeague($this);
-        // } else {
-        //     $dao->updateLeague($this);
-        // }
+        $dao = new LeagueDAO();
+
+        $this->full_name = $league_name;
+        $this->country = $country;
+        $this->id = $id;
+
+        $dao->updateLeague($this);
     }
 
     public function getAllRows()
@@ -46,7 +50,9 @@ class LeagueModel
         include 'DAO/LeagueDAO.php';
         $dao = new LeagueDAO();
 
-        $this->rows = $dao->selectLeagues();
+        $this->leagueRows = $dao->selectLeagues();
+    
+        return $this->leagueRows;
     }
 
     public function getById(int $id){
@@ -55,9 +61,7 @@ class LeagueModel
         $dao = new LeagueDAO();
         $obj = $dao->selectById($id);
 
-        return ($obj) ? $obj : new LeagueModel();
-
-        return $dao;
+        return $obj;
     }
 
     public function deleteModel(int $id)

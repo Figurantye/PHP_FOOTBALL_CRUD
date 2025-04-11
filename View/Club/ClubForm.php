@@ -16,7 +16,7 @@
     <div class="row d-flex justify-content-center mt-4">
         <main class="conatiner w-50">
             <article class="bg-secondary-subtle rounded border border-dark">
-                <form action="/league/leagueform/save" class="justify-content-center d-flex flex-column" method="post">
+                <form action="/club/clubform/save" class="justify-content-center d-flex flex-column" method="post">
                     <div class="justify-content-center row">
                         <section class=" m-3 col-md-5">
                             <label for="fullnameInput">Full Name:</label>
@@ -28,19 +28,15 @@
                         </section>
                         <section class="mb-3 col-md-10">
                             <label for="groundInput">Ground:</label>
-                            <input type="text" class="form-control" placeholder="Ground" id="groundInput" name="fullnameInput">
+                            <input type="text" class="form-control" placeholder="Ground" id="groundInput" name="groundInput">
                         </section>
                         <section class="mb-3 col-md-3">
                             <label for="foundedInput">Founded (year):</label>
-                            <input type="number" class="form-control" placeholder="Year" id="foundedInput" name="nicknameInput">
+                            <input type="number" class="form-control" placeholder="Year" id="foundedInput" name="foundedInput">
                         </section>
                         <section class="mb-3 col-md-3">
                             <label for="colorInput">Color:</label>
                             <input type="text" class="form-control"  placeholder="Color text" id="colorInput" name="colorInput">
-                        </section>
-                        <section class="mb-3 col-md-3 pt-4 pb-4">
-                            <input type="checkbox" class="form-check-input" id="safInput" name="safInput">
-                            <label for="safInput" class="form-check-label">SAF</label>
                         </section>
                     </div>
             </article>
@@ -51,8 +47,8 @@
                         <label for="leagueInput">League:</label><br>
                         <select name="leagueInput" id="leagueInput" class="form-select">
                             <?php foreach ($league->rows as $item): ?>
-                                <option value="<?$item->id?>"><?$item->full_name?></option>
-                                <?php endforeach?>
+                                <option value="<?=$item->id?>"><?=$item->full_name?></option>
+                            <?php endforeach?>
                         </select>
                     </section>
                     <section class="mt-3 col-md-12">

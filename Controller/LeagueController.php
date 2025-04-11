@@ -1,28 +1,16 @@
 <?php
 class LeagueController{
-    public static function form()
-    {
-        include "Model/LeagueModel.php";
-        $league = new LeagueModel(); 
-        
-        if (isset($_GET['id'])) {
-            $league = $league->getById((int) $_GET['id']);
-        }
-
-        include 'View/League/LeagueForm.php';
-    }
-
     public static function saveController()
     {
         include "Model/LeagueModel.php";
         
-        $fullname = $_POST['fullNameInput'];
-        $country = $_POST['countryInput'];
+        $fullname = $_POST['leagueNameInsertInput'];
+        $country = $_POST['countryInsertInput'];
         
-        header("Location: /league");
-
+        
         $league = new LeagueModel(); //instancia o objeto
         $league -> saveModel($fullname, $country);
+        header("Location: /league");
     }
     
     public static function index()
@@ -30,6 +18,7 @@ class LeagueController{
         include "Model/LeagueModel.php";
 
         $league = new LeagueModel();
+        
         $data['rows'] = $league->getAllRows();
 
         include "View/League/LeagueList.php";
@@ -42,6 +31,21 @@ class LeagueController{
         $league->deleteModel((int) $_GET['id']);
 
         header('Location: /league');
+    }
+
+    public static function editController()
+    {
+        include "Model/LeagueModel.php";
+        $league = new LeagueModel();
+
+        $id = $_POST['id'];
+        $league_name = $_POST['leagueNameEditInput'];
+        $country = $_POST['countryEditInput'];
+
+        
+        $league->editModel($id, $league_name, $country);   
+
+        Header('Location: /league');
     }
 }
 ?>

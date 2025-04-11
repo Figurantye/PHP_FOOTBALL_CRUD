@@ -8,7 +8,7 @@ class PlayerDAO
     {
         $dsn = "mysql:host=localhost:3306;dbname=db_football";
 
-        $this->connection = new PDO($dsn, 'root', 'root'); //credenciais do banco de dados
+        $this->connection = new PDO($dsn,  /*adicionar user*/ /*adicionar senha*/); //credenciais do banco de dados
     }
 
     //Insert functions
@@ -56,15 +56,15 @@ class PlayerDAO
     //Update functions
     public function updatePlayer(PLayerModel $player) 
     {
-        $sql = "UPDATE player SET full_name=?, nickname=?, player_position=?, birthdate=?, league=? WHERE id=?";
+        $sql = "UPDATE player SET full_name=?, nickname=?, player_position=?, birthdate=?, current_club WHERE id=?";
 
         $stmt = $this->connection->prepare($sql);
 
         $stmt->bindValue(1, $player->getFullName());
         $stmt->bindValue(2, $player->getNickName());
-        $stmt->bindValue(2, $player->getPlayerPosition());
-        $stmt->bindValue(2, $player->getBirthdate());
-        $stmt->bindValue(2, $player->getLeague());
+        $stmt->bindValue(3, $player->getPlayerPosition());
+        $stmt->bindValue(4, $player->getBirthdate());
+        $stmt->bindValue(5, $player->getCurrentClub());
 
         $stmt->execute();
 

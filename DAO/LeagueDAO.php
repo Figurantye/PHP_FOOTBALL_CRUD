@@ -9,14 +9,14 @@ class LeagueDAO
     {
         $dsn = "mysql:host=localhost:3306;dbname=db_football";
 
-        $this->connection = new PDO($dsn, 'root', 'root'); //credenciais do banco de dados
+        $this->connection = new PDO($dsn,  /*adicionar user*/ /*adicionar senha*/); //credenciais do banco de dados
     }
 
 
     //Insert functions
     public function insertLeague(LeagueModel $league)
     {
-        $sql = "INSERT INTO league (full_name, country) VALUES (?, ?)"; //string sql
+        $sql = "INSERT INTO league (league_name, country) VALUES (?, ?)"; //string sql
     
         $stmt = $this->connection->prepare($sql);
     
@@ -55,12 +55,13 @@ class LeagueDAO
     //Update functions
     public function updateLeague(LeagueModel $league) 
     {
-        $sql = "UPDATE league SET full_name=?, country=? WHERE id=?";
+        $sql = "UPDATE league SET league_name=?, country=? WHERE id=?";
 
         $stmt = $this->connection->prepare($sql);
 
         $stmt->bindValue(1, $league->getFullName());
         $stmt->bindValue(2, $league->getCountry());
+        $stmt->bindValue(3, $league->getId());
 
         $stmt->execute();
 

@@ -8,14 +8,18 @@ include 'Controller/PlayerController.php';
 switch ($url) {
     case '/':
         break;
-        case '/league/leagueform':
-            LeagueController::form();
-            break;
-        case '/league/leagueform/save':
+        case '/league/edit':
+        LeagueController::editController();
+        break;
+        case '/league/save':
             LeagueController::saveController();
-            break;
+
+        break;
         case '/league':
             LeagueController::index();
+        break;
+        case '/league/delete':
+            LeagueController::deleteController();
             break;
         case '/league/leaguelistclubs':
             echo "<br>List of league's clubs";
@@ -23,14 +27,16 @@ switch ($url) {
         case '/league/leaguelistplayers':
             echo "<br>List of league's players";
             break;  
-        case '/club/clubform':
-            ClubController::form();
+        case '/club/edit':
             break;
-        case '/club/clubform/save':
+        case '/club/save':
             ClubController::saveController();
             break;
         case '/club':
             ClubController::index();
+            break;
+        case '/club/delete':
+            ClubController::deleteController();
             break;
         case '/player/playerform':
             PlayerController::form();
@@ -40,6 +46,9 @@ switch ($url) {
             break;
         case '/player':
             PlayerController::index();
+            break;
+        case '/player/delete':
+            PlayerController::deleteController();
             break;
         case '/league/leaguelistclubs':
             echo "<br>List of league's clubs";
