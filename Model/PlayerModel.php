@@ -1,63 +1,60 @@
 <?php
 Class PlayerModel{
-    private $id, $current_club, $full_name, $nickname, $player_position, $birthdate;
+    private $id, $playerCurrentClub, $playerName, $playerNickname, $playerPosition, $playerBirthdate;
     
-    public $rows; //variável para armazenar todas as linhas que estão chengando do banco de dados
+    public $playerRows; //variável para armazenar todas as linhas que estão chengando do banco de dados
     
-    function getId(){
+    public function getId(){
         return $this->id;
     }
-    function getCurrentClub(){
-        return $this->current_club;
+    public function getPlayerCurrentClub(){
+        return $this->playerCurrentClub;
     }
 
-    function getFullName(){
-        return $this->full_name; 
+    public function getPlayerName(){
+        return $this->playerName; 
     }
-    function getNickName(){
-        return $this->nickname;
+    public function getPayerNickname(){
+        return $this->playerNickname;
     }
-    function getPlayerPosition(){
-        return $this->player_position;
+    public function getPlayerPosition(){
+        return $this->playerPosition;
     }
-    function getBirthdate(){
-        return $this->birthdate;
-    }
-
-    function setCurrentClub($newClub){
-        $this->current_club = $newClub;
+    public function getPlayerBirthdate(){
+        return $this->playerBirthdate;
     }
 
-    function setFullName($FullName){
-         $this->full_name = $FullName; 
-    }
-    function setNickName($NickName){
-         $this->nickname = $NickName;
-    }
-    function setPlayerPosition($position){
-         $this->player_position = $position;
-    }
-    function setBirhdate($newBirthdate){
-         $this->birthdate = $newBirthdate;
+    public function setPlayerCurrentClub($newClub){
+        $this->playerCurrentClub = $newClub;
     }
 
-    public function saveModel($current_club, $full_name, $nickname, $player_position, $birthdate)
+    public function setPlayerName($newName){
+         $this->playerName = $newName; 
+    }
+    public function setplayerNickname($newNickname){
+         $this->playerNickname = $newNickname;
+    }
+    public function setPlayerPosition($newPosition){
+         $this->playerPosition = $newPosition;
+    }
+    public function setBirhdate($newBirthdate){
+         $this->playerBirthdate = $newBirthdate;
+    }
+
+
+    public function saveModel($currentClub, $name, $nickname, $position, $birthdate)
     {
         include 'DAO/PlayerDAO.php'; //conexão com a DAO
 
         $dao = new PlayerDAO();
 
-        $this->full_name = $full_name; 
-        $this->nickname = $nickname; 
-        $this->player_position = $player_position; 
-        $this->birthdate = $birthdate; 
-        $this->current_club = $current_club; 
+        $this->playerCurrentClub = $currentClub;
+        $this->playerName = $name;
+        $this->playerNickname = $nickname;
+        $this->playerPosition = $position;
+        $this->playerBirthdate = $birthdate;
 
-        if (empty($this->id)) {
-            $dao->insertPlayer($this);
-        } else {
-            $dao->updatePlayer($this);
-        }
+        $dao->insertPlayer($this);
     }
 
     public function getAllRows()
@@ -65,18 +62,35 @@ Class PlayerModel{
         include 'DAO/PlayerDAO.php';
         $dao = new PlayerDAO();
 
-        $this->rows = $dao->selectPlayers();
+        $this->playerRows = $dao->selectPlayers();
+
+        return $this->playerRows;
     }
 
-    public function getById(int $id){
+    public function selectPlayersByClubModel(int $club)
+    {
         include 'DAO/PlayerDAO.php';
 
         $dao = new PlayerDAO();
-        $obj = $dao->selectById($id);
+        $this->playerRows = $dao->selectPlayersByClub($club);
 
-        return ($obj) ? $obj : new PlayerModel();
+        return $this->playerRows;
+    }
 
-        return $dao;
+    public function editModel($id, $currentClub, $name, $nickname, $position, $birthdate)
+    {
+        include 'DAO/PlayerDAO.php';
+
+        $dao = new PlayerDAO();
+
+        $this->playerCurrentClub = $currentClub;
+        $this->playerName = $name;
+        $this->playerNickname = $nickname;
+        $this->playerPosition = $position;
+        $this->playerBirthdate = $birthdate;
+        $this->id = $id;
+
+        $dao->updatePlayer($this);
     }
 
     public function deleteModel(int $id)

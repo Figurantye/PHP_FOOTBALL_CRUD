@@ -8,7 +8,7 @@ class ClubDAO
     {
         $dsn = "mysql:host=localhost:3306;dbname=db_football";
 
-        $this->connection = new PDO($dsn, /*adicionar user*/ /*adicionar senha*/ ); //credenciais do banco de dados
+        $this->connection = new PDO($dsn, 'root', '3314' ); //credenciais do banco de dados
     }
     
     //Insert functions
@@ -32,11 +32,35 @@ class ClubDAO
     }
     
 
+    
+    //Select functions
+    public function selectClubs()
+    {
+        $sql = "SELECT league.league_name, club.league, club.club_id, club.club_name, club.nickname, club.ground, club.coach, club.chairman, club.founded, club.last_title_year, club.color FROM club INNER JOIN league ON club.league = league.id"; //sql para listar as pessoas do banco
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function selectClubsByLeague(int $club)
+    {
+        $sql = "SELECT league.id, league.league_name, club.club_id, club.club_name, club.nickname, club.ground, club.coach, club.chairman, club.founded, club.last_title_year, club.color FROM club INNER JOIN league ON club.league = league.id WHERE league.id=?";
+
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(1, $club);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+
     public function selectById(int $id)
     {
         include_once 'Model/ClubModel.php';
 
-        $sql = "SELECT * FROM club WHERE id=?";
+        $sql = "SELECT * FROM club WHERE club_id=?";
 
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);
@@ -46,34 +70,10 @@ class ClubDAO
         return $stmt->fetchObject("ClubModel");
     }
 
-    //Select functions
-    public function selectClubs()
-    {
-        $sql = "SELECT league.league_name, club.league, club.id, club.club_name, club.nickname, club.ground, club.coach, club.chairman, club.founded, club.last_title_year, club.color FROM club INNER JOIN league ON club.league = league.id"; //sql para listar as pessoas do banco
-
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_CLASS);
-    }
-    
-    /*
-    public function selectClubsLeagueName(ClubModel $club)
-    {
-        $sql = "SELECT league.full_name FROM club INNER JOIN league ON club.id = league.id WHERE club.id=?"; //sql para listar as pessoas do banco
-
-        $stmt = $this->connection->prepare($sql);
-
-        $stmt->bindValue(1, $club->getLeague());
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_CLASS);
-    }*/
-
     //Update functions
     public function updateClub(ClubModel $club) 
     {
-        $sql = "UPDATE club SET league=?, club_name=?, nickname=?, ground=?, founded=?, coach=?, saf=?, chairman=?, color=?, last_title_yer=? WHERE id=?";
+        $sql = "UPDATE club SET league=?, club_name=?, nickname=?, ground=?, founded=?, coach=?, chairman=?, color=?, last_title_year=? WHERE club_id=?";
 
         $stmt = $this->connection->prepare($sql);
 
@@ -98,7 +98,7 @@ class ClubDAO
 
     public function deleteClub(int $id)
     {
-        $sql = "DELETE FROM club WHERE id=?";
+        $sql = "DELETE FROM club WHERE club_id=?";
 
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);

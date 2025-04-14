@@ -1,47 +1,74 @@
 <?php
 class PlayerController
 {
-    public static function form()
-    {
-        include "Model/PlayerModel.php";
-
-        $player = new PlayerModel();
-
-        if (isset($_GET['id'])) {
-            $player = $player->getById((int) $_GET['id']);
-        }
-
-        include 'View/Player/PlayerForm.php';
-    }
-
+    //CREATE
     public static function saveController()
     {
         include "Model/PlayerModel.php";
 
-        $currentClub = $_POST['currentClubInput'];
-        $nickname = $_POST['nicknameInput'];
-        $playerPostion = $_POST['playerPostionInput'];
-        $birthdate = $_POST['birthdateInput'];
+        $playerCurrentClub = $_POST['playerCurrentClubInsertInput'];
+        $playerName = $_POST['playerNameInsertInput'];
+        $playerNickname = $_POST['playerNicknameInsertInput'];
+        $playerPosition = $_POST['playerPositionInsertInput'];
+        $playerBirthdate = $_POST['playerBirthdateInsertInput'];
 
-        $player = new PlayerModel(); //instancia o objeto
+        $player = new PlayerModel();
 
-        header("Location: /player");
-        $player->saveModel($currentClub, $league, $fullname, $nickname, $playerPostion, $birthdate);
+        $player->saveModel($playerCurrentClub, $playerName, $playerNickname, $playerPosition, $playerBirthdate);
+
+        if (isset($_GET['id'])){
+            header("Location: /player?=" . (int)$_GET['id']);
+        } else {
+            header('Location: /player');
+        }
     }
 
+    //READ
     public static function index()
     {
         include "Model/PlayerModel.php";
+        include "Model/ClubModel.php";
 
-        $player = new PlayerModel();
-        $data['rows'] = $player->getAllRows();
+        $club = new ClubModel();
+        $clubData['rows'] = $club->getAllRows();
+
+        $player = new playerModel();
+        
+        $playerData['rows'] = isset($_GET['id']) ? $player->selectPlayersByClubModel((int)$_GET['id']) : $player->getAllRows();
 
         include "View/Player/PlayerList.php";
     }
 
+    //UPDATE
+    public static function editController()
+    {
+        include "Model/PlayerModel.php";
+
+        $player = new PlayerModel();
+        
+        $id = $_POST['id'];
+        $playerCurrentClub = $_POST['playerCurrentClubEditInput'];
+        $playerName = $_POST['playerNameEditInput'];
+        $playerNickname = $_POST['playerNicknameEditInput'];
+        $playerPosition = $_POST['playerPositionEditInput'];
+        $playerBirthdate = $_POST['playerBirthdateEditInput'];
+
+        
+        $player->editModel($id, $playerCurrentClub, $playerName, $playerNickname, $playerPosition, $playerBirthdate);
+
+
+        if (isset($_GET['id'])) {
+            header("Location: /player?=" . (int)$_GET['id']);
+        } else {
+            header('Location: /player');
+        }
+    }
+
+    //DELETE
     public static function deleteController()
     {
         include "Model/PlayerModel.php";
+
         $player = new PlayerModel();
         $player->deleteModel((int) $_GET['id']);
 

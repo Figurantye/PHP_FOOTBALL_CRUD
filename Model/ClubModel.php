@@ -97,13 +97,23 @@ class ClubModel
         return $this->clubRows;
     }
 
-    public function getById($id, $league, $full_name, $nickname, $ground, $founded, $coach, $chairman, $color, $last_title_year){
+    public function getById($id){
         include 'DAO/ClubDAO.php';
 
         $dao = new ClubDAO();
         $obj = $dao->selectById($id);
 
         return $obj ? : new ClubModel();
+    }
+
+    public function selectClubsByLeagueModel(int $league)
+    {
+        include 'DAO/ClubDAO.php';
+
+        $dao = new ClubDAO();
+        $this->clubRows = $dao->selectClubsByLeague($league);
+
+        return $this->clubRows;
     }
 
     public function editModel($id, $league, $full_name, $nickname, $ground, $founded, $coach, $chairman, $color, $last_title_year)

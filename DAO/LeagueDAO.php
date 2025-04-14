@@ -9,7 +9,7 @@ class LeagueDAO
     {
         $dsn = "mysql:host=localhost:3306;dbname=db_football";
 
-        $this->connection = new PDO($dsn,  /*adicionar user*/ /*adicionar senha*/); //credenciais do banco de dados
+        $this->connection = new PDO($dsn, 'root', '3314'); //credenciais do banco de dados
     }
 
 
@@ -49,7 +49,6 @@ class LeagueDAO
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS); 
-
     }
 
     //Update functions
