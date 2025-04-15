@@ -6,11 +6,11 @@ class PlayerController
     {
         include "Model/PlayerModel.php";
 
-        $playerCurrentClub = $_POST['playerCurrentClubInsertInput'];
-        $playerName = $_POST['playerNameInsertInput'];
-        $playerNickname = $_POST['playerNicknameInsertInput'];
-        $playerPosition = $_POST['playerPositionInsertInput'];
-        $playerBirthdate = $_POST['playerBirthdateInsertInput'];
+        $playerCurrentClub = $_POST['playerCurrentClubInput'];
+        $playerName = $_POST['playerNameInput'];
+        $playerNickname = $_POST['playerNicknameInput'];
+        $playerPosition = $_POST['playerPositionInput'];
+        $playerBirthdate = $_POST['playerBirthdateInput'];
 
         $player = new PlayerModel();
 
@@ -47,21 +47,17 @@ class PlayerController
         $player = new PlayerModel();
         
         $id = $_POST['id'];
-        $playerCurrentClub = $_POST['playerCurrentClubEditInput'];
-        $playerName = $_POST['playerNameEditInput'];
-        $playerNickname = $_POST['playerNicknameEditInput'];
-        $playerPosition = $_POST['playerPositionEditInput'];
-        $playerBirthdate = $_POST['playerBirthdateEditInput'];
+        $playerCurrentClub = $_POST['playerCurrentClubInput'];
+        $playerName = $_POST['playerNameInput'];
+        $playerNickname = $_POST['playerNicknameInput'];
+        $playerPosition = $_POST['playerPositionInput'];
+        $playerBirthdate = $_POST['playerBirthdateInput'];
 
         
         $player->editModel($id, $playerCurrentClub, $playerName, $playerNickname, $playerPosition, $playerBirthdate);
 
 
-        if (isset($_GET['id'])) {
-            header("Location: /player?=" . (int)$_GET['id']);
-        } else {
-            header('Location: /player');
-        }
+        header('Location: /player');
     }
 
     //DELETE

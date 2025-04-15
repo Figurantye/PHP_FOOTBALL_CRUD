@@ -7,9 +7,9 @@ class LeagueDAO
 
     public function __construct()
     {
-        $dsn = "mysql:host=localhost:3306;dbname=db_football";
+        $dsn = "mysql:host=localhost:3306;dbname="/*dbname*/;
 
-        $this->connection = new PDO($dsn, 'root', '3314'); //credenciais do banco de dados
+        $this->connection = new PDO($dsn, /*'user', 'password'*/); //credenciais do banco de dados
     }
 
 
@@ -30,7 +30,7 @@ class LeagueDAO
     {
         include_once 'Model/LeagueModel.php';
 
-        $sql = "SELECT * FROM league WHERE id=?";
+        $sql = "SELECT * FROM league WHERE league_id=?";
 
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);
@@ -54,7 +54,7 @@ class LeagueDAO
     //Update functions
     public function updateLeague(LeagueModel $league) 
     {
-        $sql = "UPDATE league SET league_name=?, country=? WHERE id=?";
+        $sql = "UPDATE league SET league_name=?, country=? WHERE league_id=?";
 
         $stmt = $this->connection->prepare($sql);
 
@@ -70,7 +70,7 @@ class LeagueDAO
     //Delete functions
     public function deleteLeague(int $id)
     {
-        $sql = "DELETE FROM league WHERE id=?";
+        $sql = "DELETE FROM league WHERE league_id=?";
 
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $id);

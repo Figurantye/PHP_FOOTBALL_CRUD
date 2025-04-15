@@ -6,9 +6,9 @@ class PlayerDAO
 
     public function __construct()
     {
-        $dsn = "mysql:host=localhost:3306;dbname=db_football";
+        $dsn = "mysql:host=localhost:3306;dbname="/*dbname*/;
 
-        $this->connection = new PDO($dsn, 'root', '3314'); //credenciais do banco de dados
+        $this->connection = new PDO($dsn, /*'user', 'password'*/); //credenciais do banco de dados
     }
 
     //Insert functions

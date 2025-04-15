@@ -4,8 +4,8 @@ class LeagueController{
     {
         include "Model/LeagueModel.php";
         
-        $fullname = $_POST['leagueNameInsertInput'];
-        $country = $_POST['countryInsertInput'];
+        $fullname = $_POST['leagueNameInput'];
+        $country = $_POST['countryInput'];
         
         
         $league = new LeagueModel(); //instancia o objeto
@@ -20,7 +20,7 @@ class LeagueController{
         $league = new LeagueModel();
         
         $data['rows'] = $league->getAllRows();
-
+        
         include "View/League/LeagueList.php";
     }
 
@@ -39,8 +39,8 @@ class LeagueController{
         $league = new LeagueModel();
 
         $id = $_POST['id'];
-        $league_name = $_POST['leagueNameEditInput'];
-        $country = $_POST['countryEditInput'];
+        $league_name = $_POST['leagueNameInput'];
+        $country = $_POST['countryInput'];
 
         
         $league->editModel($id, $league_name, $country);   

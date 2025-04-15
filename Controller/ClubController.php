@@ -6,15 +6,15 @@ class ClubController
     {
         include "Model/ClubModel.php";
 
-        $league = $_POST['leagueInsertInput'];
-        $fullname = $_POST['fullnameInsertInput'];
-        $nickname = $_POST['nicknameInsertInput'];
-        $ground = $_POST['groundInsertInput'];
-        $founded = $_POST['foundedInsertInput'];
-        $coach = $_POST['coachInsertInput'];
-        $chairman = $_POST['chairmanInsertInput'];
-        $color = $_POST['colorInsertInput'];
-        $lastYearTitle = $_POST['lastYearTitleInsertInput'];
+        $league = $_POST['leagueInput'];
+        $fullname = $_POST['clubNameInput'];
+        $nickname = $_POST['nicknameInput'];
+        $ground = $_POST['groundInput'];
+        $founded = $_POST['foundedInput'];
+        $coach = $_POST['coachInput'];
+        $chairman = $_POST['chairmanInput'];
+        $color = $_POST['colorInput'];
+        $lastYearTitle = $_POST['lastYearTitleInput'];
 
         $club = new clubModel(); //instancia o objeto
 
@@ -45,15 +45,15 @@ class ClubController
         $club = new ClubModel();
         
         $id = $_POST['id'];
-        $league = $_POST['leagueEditInput'];
-        $fullname = $_POST['clubNameEditInput'];
-        $nickname = $_POST['nicknameEditInput'];
-        $ground = $_POST['groundEditInput'];
-        $founded = $_POST['foundedEditInput'];
-        $coach = $_POST['coachEditInput'];
-        $chairman = $_POST['chairmanEditInput'];
-        $color = $_POST['colorEditInput'];
-        $lastYearTitle = $_POST['lastYearTitleEditInput'];
+        $league = $_POST['leagueInput'];
+        $fullname = $_POST['clubNameInput'];
+        $nickname = $_POST['nicknameInput'];
+        $ground = $_POST['groundInput'];
+        $founded = $_POST['foundedInput'];
+        $coach = $_POST['coachInput'];
+        $chairman = $_POST['chairmanInput'];
+        $color = $_POST['colorInput'];
+        $lastYearTitle = $_POST['lastYearTitleInput'];
 
         
         $club->editModel($id, $league, $fullname, $nickname, $ground, $founded, $coach, $chairman, $color, $lastYearTitle);   

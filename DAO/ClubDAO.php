@@ -6,9 +6,9 @@ class ClubDAO
 
     public function __construct()
     {
-        $dsn = "mysql:host=localhost:3306;dbname=db_football";
+        $dsn = "mysql:host=localhost:3306;dbname="/*dbname*/;
 
-        $this->connection = new PDO($dsn, 'root', '3314' ); //credenciais do banco de dados
+        $this->connection = new PDO($dsn, /*'user', 'password'*/ ); //credenciais do banco de dados
     }
     
     //Insert functions
@@ -36,7 +36,7 @@ class ClubDAO
     //Select functions
     public function selectClubs()
     {
-        $sql = "SELECT league.league_name, club.league, club.club_id, club.club_name, club.nickname, club.ground, club.coach, club.chairman, club.founded, club.last_title_year, club.color FROM club INNER JOIN league ON club.league = league.id"; //sql para listar as pessoas do banco
+        $sql = "SELECT league.league_name, club.league, club.club_id, club.club_name, club.nickname, club.ground, club.coach, club.chairman, club.founded, club.last_title_year, club.color FROM club INNER JOIN league ON club.league = league.league_id"; //sql para listar as pessoas do banco
 
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
@@ -46,7 +46,7 @@ class ClubDAO
 
     public function selectClubsByLeague(int $club)
     {
-        $sql = "SELECT league.id, league.league_name, club.club_id, club.club_name, club.nickname, club.ground, club.coach, club.chairman, club.founded, club.last_title_year, club.color FROM club INNER JOIN league ON club.league = league.id WHERE league.id=?";
+        $sql = "SELECT league.league_name, club.league, club.club_id, club.club_name, club.nickname, club.ground, club.coach, club.chairman, club.founded, club.last_title_year, club.color FROM club INNER JOIN league ON club.league = league.league_id WHERE league.league_id=?";
 
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(1, $club);
